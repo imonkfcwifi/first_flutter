@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
+class Player {
+  String name = "nico";
+  Player({required this.name});
+}
+// home: ,,, appBar etc)... is named parameter
+
 void main() {
+  var nico = Player(name: "nico");
   runApp(App());
 }
 
