@@ -19,11 +19,12 @@ class App extends StatelessWidget {
           backgroundColor: Color(0xFF181818),
           body: Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: 40,
+              horizontal: 20,
             ),
-            child: Column(children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               SizedBox(
-                height: 80,
+                height: 30,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -48,6 +49,69 @@ class App extends StatelessWidget {
                       ),
                     ],
                   )
+                ],
+              ),
+              SizedBox(
+                height: 100,
+              ),
+              Text(
+                'BitCoin',
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.white.withOpacity(0.8),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                '0.007 BITCOIN \$',
+                style: TextStyle(
+                  fontWeight: FontWeight.w200,
+                  fontSize: 42,
+                  color: Colors.white.withOpacity(1),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                      decoration: BoxDecoration(
+                        color: Colors.amber,
+                        borderRadius: BorderRadius.circular(45),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 50,
+                        ),
+                        child: Text(
+                          'Transfer',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      )),
+                  Container(
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 250, 250, 249),
+                        borderRadius: BorderRadius.circular(45),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 50,
+                        ),
+                        child: Text(
+                          'Donate',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                      ))
                 ],
               )
             ]),
