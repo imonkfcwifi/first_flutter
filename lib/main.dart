@@ -1,3 +1,4 @@
+import 'package:flu/widgets/button.dart';
 import 'package:flutter/material.dart';
 
 class Player {
@@ -16,14 +17,14 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          backgroundColor: Color(0xFF181818),
+          backgroundColor: const Color(0xFF181818),
           body: Padding(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 20,
             ),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Row(
@@ -32,7 +33,7 @@ class App extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
+                      const Text(
                         'Hey! imonkfcwifi!',
                         style: TextStyle(
                           color: Colors.white,
@@ -51,7 +52,7 @@ class App extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 100,
               ),
               Text(
@@ -61,7 +62,7 @@ class App extends StatelessWidget {
                   color: Colors.white.withOpacity(0.8),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Text(
@@ -72,46 +73,22 @@ class App extends StatelessWidget {
                   color: Colors.white.withOpacity(1),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                      decoration: BoxDecoration(
-                        color: Colors.amber,
-                        borderRadius: BorderRadius.circular(45),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 20,
-                          horizontal: 50,
-                        ),
-                        child: Text(
-                          'Transfer',
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
-                        ),
-                      )),
-                  Container(
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 250, 250, 249),
-                        borderRadius: BorderRadius.circular(45),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 20,
-                          horizontal: 50,
-                        ),
-                        child: Text(
-                          'Donate',
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                      ))
+                children: const [
+                  Button(
+                    text: 'Transfer',
+                    bgColor: Colors.amber,
+                    textColor: Colors.black,
+                  ),
+                  Button(
+                    text: 'Request',
+                    bgColor: Colors.black,
+                    textColor: Colors.white,
+                  ),
                 ],
               )
             ]),
