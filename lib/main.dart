@@ -1,14 +1,9 @@
 import 'package:flu/widgets/button.dart';
 import 'package:flutter/material.dart';
 
-class Player {
-  String name = "nico";
-  Player({required this.name});
-}
 // home: ,,, appBar etc)... is named parameter
 
 void main() {
-  var nico = Player(name: "nico");
   runApp(App());
 }
 
@@ -67,7 +62,7 @@ class App extends StatelessWidget {
                 height: 10,
               ),
               Text(
-                '0.007 BITCOIN \$',
+                '0.007 BITCOINS \$',
                 style: TextStyle(
                   fontWeight: FontWeight.w200,
                   fontSize: 42,
@@ -120,6 +115,7 @@ class App extends StatelessWidget {
                 height: 20,
               ),
               Container(
+                clipBehavior: Clip.hardEdge,
                 decoration: BoxDecoration(
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(30),
@@ -129,6 +125,7 @@ class App extends StatelessWidget {
                     30,
                   ),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,6 +162,20 @@ class App extends StatelessWidget {
                             ],
                           )
                         ],
+                      ),
+                      Transform.scale(
+                        scale: 2.2,
+                        child: Transform.translate(
+                          offset: const Offset(
+                            -5,
+                            12,
+                          ),
+                          child: const Icon(
+                            Icons.euro_rounded,
+                            color: Colors.white,
+                            size: 88,
+                          ),
+                        ),
                       )
                     ],
                   ),
