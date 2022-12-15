@@ -1,5 +1,3 @@
-import 'package:flu/widgets/button.dart';
-import 'package:flu/widgets/currency_card.dart';
 import 'package:flutter/material.dart';
 
 // home: ,,, appBar etc)... is named parameter
@@ -8,140 +6,39 @@ void main() {
   runApp(App());
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  int counter = 0;
+  void onClicked() {
+    counter = counter + 1;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: const Color(0xFF181818),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 30,
+        backgroundColor: const Color(0xFFF4EDDB),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Click Count',
+                style: TextStyle(fontSize: 30),
+              ),
+              IconButton(
+                iconSize: 40,
+                onPressed: onClicked,
+                icon: const Icon(
+                  Icons.add_box,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const Text(
-                          'Hey! imonkfcwifi!',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 34,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                        Text(
-                          'Welcome backya!',
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.8),
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 70,
-                ),
-                Text(
-                  'BitCoin',
-                  style: TextStyle(
-                    fontSize: 22,
-                    color: Colors.white.withOpacity(0.8),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  '0.003 BITCOIN ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w200,
-                    fontSize: 42,
-                    color: Colors.white.withOpacity(1),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Button(
-                      text: 'Transfer',
-                      bgColor: Colors.amber,
-                      textColor: Colors.black,
-                    ),
-                    Button(
-                      text: 'Request',
-                      bgColor: Colors.black,
-                      textColor: Colors.white,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 80,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Wallets',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 36,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      'View All',
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.8),
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const CureencyCard(
-                  name: 'Euro',
-                  code: 'EUR',
-                  amount: '159 875',
-                  icon: Icons.euro_rounded,
-                  isInverted: false,
-                  offsetOrder: 0,
-                ),
-                const CureencyCard(
-                  name: 'Dollar',
-                  code: 'USD',
-                  amount: '12 500',
-                  icon: Icons.monetization_on_rounded,
-                  isInverted: true,
-                  offsetOrder: -20,
-                ),
-                const CureencyCard(
-                  name: 'Won',
-                  code: 'WON',
-                  amount: '159 875',
-                  icon: Icons.monetization_on_rounded,
-                  isInverted: false,
-                  offsetOrder: -40,
-                ),
-              ],
-            ),
+              ),
+              Text('$counter'),
+            ],
           ),
         ),
       ),
