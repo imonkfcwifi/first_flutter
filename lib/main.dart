@@ -1,89 +1,27 @@
+import 'package:flu/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 // home: ,,, appBar etc)... is named parameter
 
 void main() {
-  runApp(App());
+  runApp(const App());
 }
 
-class App extends StatefulWidget {
-  @override
-  State<App> createState() => _AppState();
-}
-
-class _AppState extends State<App> {
-  bool showtitle = true;
-
-  void toggleTitle() {
-    setState(() {
-      showtitle = !showtitle;
-    });
-  }
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        textTheme: const TextTheme(
-          titleLarge: TextStyle(
-            color: Colors.red,
+          backgroundColor: const Color(0xFFE7626C),
+          textTheme: const TextTheme(
+            headline1: TextStyle(
+              color: Color(0xFF232B55),
+            ),
           ),
-        ),
-      ),
-      home: Scaffold(
-        backgroundColor: const Color(0xFFF4EDDB),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              showtitle ? const MyLargeTitle() : const Text('none'),
-              IconButton(
-                onPressed: toggleTitle,
-                icon: const Icon(
-                  Icons.emergency_share_sharp,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class MyLargeTitle extends StatefulWidget {
-  const MyLargeTitle({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<MyLargeTitle> createState() => _MyLargeTitleState();
-}
-
-class _MyLargeTitleState extends State<MyLargeTitle> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    print('welcome');
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    print('bye!');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    print('build');
-    return Text(
-      'My Large Title',
-      style: TextStyle(
-        fontSize: 30,
-        color: Theme.of(context).textTheme.titleLarge!.color,
-      ),
+          cardColor: const Color(0xFFF4EDDB)),
+      home: const HomeScreen(),
     );
   }
 }
