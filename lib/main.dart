@@ -1,27 +1,20 @@
 import 'package:flu/screens/home_screen.dart';
+import 'package:flu/services/api_service.dart';
 import 'package:flutter/material.dart';
 
-// home: ,,, appBar etc)... is named parameter
-
 void main() {
+  ApiService().getToons();
   runApp(const App());
 }
 
 class App extends StatelessWidget {
   const App({super.key});
+  // 위젯은 키를 가지고 있고 ID 처럼 쓰임
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-          backgroundColor: const Color(0xFFE7626C),
-          textTheme: const TextTheme(
-            headline1: TextStyle(
-              color: Color(0xFF232B55),
-            ),
-          ),
-          cardColor: const Color(0xFFF4EDDB)),
-      home: const HomeScreen(),
+    return const MaterialApp(
+      home: HomeScreen(),
     );
   }
 }
