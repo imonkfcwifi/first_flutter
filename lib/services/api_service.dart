@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flu/models/webtoon.dart';
 import 'package:http/http.dart' as http;
 
 // get -> http로 쓸수있음
@@ -5,7 +8,8 @@ class ApiService {
   final String baseUrl = "https://webtoon-crawler.nomadcoders.workers.dev";
   final String today = "today";
 
-  void getToons() async {
+  Future<List<WebtoonModel>> getToons() async {
+    List<WebtoonModel> toonsList = [];
     final url = Uri.parse('$baseUrl/$today');
     // base url 만들기
     final response = await http.get(url);
@@ -15,9 +19,13 @@ class ApiService {
     // 서버에서 요청을 처리하고 응답을 주는것을 기다리고
     // 응답을 response 변수에 저장함
     if (response.statusCode == 200) {
-      print(response.body);
+      final List<dynamic> webtoons = jsonDecode(response.body);
       // response의 body에는 서버가 보낸 데이터가 있음
-      return;
+      for (var webtoon in webtoons) {
+        // 단순한 String Text로 된 응답 body를 JSON List으로 디코딩한다.
+        toonsList.add(WebtoonModel.fromJson(webtoon));
+      }
+      return toonsList;
     }
     throw Error();
   }
