@@ -30,17 +30,21 @@ class HomeScreen extends StatelessWidget {
           // 로딩중인지 데이터가 있는지 에러가 났는지 알수있음
           // Widget Function(BuildContext, AsyncSnapshot<List<WebtoonModel>>
           if (snapshot.hasData) {
-            return ListView.builder(
+            return ListView.separated(
               scrollDirection: Axis.horizontal,
               // 좌우로 스크롤
               itemCount: snapshot.data!.length,
               // webtoon의 크기
               itemBuilder: (context, index) {
+                print(index);
                 var webtoon = snapshot.data![index];
                 // ListView Builder는 최적화 되어있는 ListView임, 사용자가 보고있는 아이템만 Build함
                 // 사용자가 보고있지 않은 아이템은 메모리에서 삭제함
                 return Text(webtoon.title);
               },
+              separatorBuilder: (context, index) => const SizedBox(
+                width: 20,
+              ),
             );
             // 많은 양의 데이터를 연속적으로 보여주고 싶을 때
             // Cloumm 과 Row는 딱히 적합하지 않음
