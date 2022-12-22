@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  Future<List<WebtoonModel>> webtoons = ApiService.getToons();
+  final Future<List<WebtoonModel>> webtoons = ApiService.getToons();
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +30,20 @@ class HomeScreen extends StatelessWidget {
           // 로딩중인지 데이터가 있는지 에러가 났는지 알수있음
           // Widget Function(BuildContext, AsyncSnapshot<List<WebtoonModel>>
           if (snapshot.hasData) {
-            return const Text('There is data');
+            return ListView(
+              children: [
+                for (var webtoon in snapshot.data!) Text(webtoon.title)
+                // collection for 쓰기
+                // ! 을 붙임으로서 shapshot에 데이터가 있다고 확신을 보냄
+              ],
+            );
+            // 많은 양의 데이터를 연속적으로 보여주고 싶을 때
+            // Cloumm 과 Row는 딱히 적합하지 않음
+            // ListView 는 여러항목을 나열하는데 최적화된 widget임
           }
-          return const Text('Loading');
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         },
       ),
     );
