@@ -5,10 +5,13 @@ import 'package:http/http.dart' as http;
 
 // get -> http로 쓸수있음
 class ApiService {
-  final String baseUrl = "https://webtoon-crawler.nomadcoders.workers.dev";
-  final String today = "today";
+  static const String baseUrl =
+      "https://webtoon-crawler.nomadcoders.workers.dev";
+  static const String today = "today";
+// 아무리 많은 인스턴스를 생성한다 하더라도, static으로 선언된 변수는 클래스에
+// 직접 접근하여 한번만 변경해도 모든게 바뀐다.
 
-  Future<List<WebtoonModel>> getToons() async {
+  static Future<List<WebtoonModel>> getToons() async {
     List<WebtoonModel> toonsList = [];
     final url = Uri.parse('$baseUrl/$today');
     // base url 만들기

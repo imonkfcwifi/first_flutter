@@ -1,9 +1,7 @@
 import 'package:flu/screens/home_screen.dart';
-import 'package:flu/services/api_service.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  ApiService().getToons();
   runApp(const App());
 }
 
