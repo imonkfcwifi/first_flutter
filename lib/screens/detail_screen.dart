@@ -1,13 +1,35 @@
+import 'package:flu/models/webtoon_detail_model.dart';
+import 'package:flu/models/webtoon_episode_model.dart';
+import 'package:flu/services/api_service.dart';
 import 'package:flutter/material.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   final String title, thumb, id;
+
   const DetailScreen({
     super.key,
     required this.title,
     required this.thumb,
     required this.id,
   });
+
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  late Future<WebtoonDetailModel> webtoon;
+  late Future<List<WebtoonEpisodeModel>> episodes;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    webtoon = ApiService.getToonById(widget.id);
+    episodes = ApiService.getLastestEpisodesById(widget.id);
+    // home screen은 id가 필요없었는데 detail은 id argument가 필요했음
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +40,9 @@ class DetailScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black.withOpacity(0.5),
         title: Text(
-          title,
+          widget.title,
+          // 부모에게 가르는 의미 widget! (이 경우엔 DetailScreen과 statefulwidget)
+          // 우리는 State를 extend 하는 class에 있지만 data는 DetailScreen의 statefulwidget에서 오기때문이다
           style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w600,
@@ -34,7 +58,7 @@ class DetailScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Hero(
-                tag: id,
+                tag: widget.id,
                 child: Container(
                   width: 250,
                   clipBehavior: Clip.hardEdge,
@@ -50,7 +74,7 @@ class DetailScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  child: Image.network(thumb),
+                  child: Image.network(widget.thumb),
                 ),
               ),
             ],
