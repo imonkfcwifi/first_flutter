@@ -50,101 +50,116 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Hero(
-                  tag: widget.id,
-                  child: Container(
-                    width: 250,
-                    clipBehavior: Clip.hardEdge,
-                    // 자식의 부모영역 침범 ClipBehavior
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 7,
-                          offset: const Offset(10, 10),
-                          // 그림자 위치 offset, center
-                          color: Colors.black.withOpacity(0.3),
-                        )
-                      ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(50),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Hero(
+                    tag: widget.id,
+                    child: Container(
+                      width: 250,
+                      clipBehavior: Clip.hardEdge,
+                      // 자식의 부모영역 침범 ClipBehavior
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 7,
+                            offset: const Offset(10, 10),
+                            // 그림자 위치 offset, center
+                            color: Colors.black.withOpacity(0.3),
+                          )
+                        ],
+                      ),
+                      child: Image.network(widget.thumb),
                     ),
-                    child: Image.network(widget.thumb),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            FutureBuilder(
-              future: webtoon,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        snapshot.data!.about,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Text(
-                        '${snapshot.data!.genre} / ${snapshot.data!.age} ',
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                    ],
-                  );
-                }
-                return const Text('...');
-              },
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            FutureBuilder(
-              future: episodes,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  Column(
-                    children: [
-                      for (var episode in snapshot.data!)
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.green.shade300,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 10,
-                              horizontal: 20,
+                ],
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              FutureBuilder(
+                future: webtoon,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          snapshot.data!.about,
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          '${snapshot.data!.genre} / ${snapshot.data!.age} ',
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    );
+                  }
+                  return const Text('...');
+                },
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              FutureBuilder(
+                future: episodes,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                      children: [
+                        for (var episode in snapshot.data!)
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 10),
+                            // inset(padding) 은 element와 테두리 사이의 element 내부에 있는 공간을 의미합니다.
+
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.green.shade400,
                             ),
-                            child: Row(
-                              children: [
-                                Text(episode.title),
-                                const Icon(Icons.chevron_right)
-                              ],
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 10,
+                                horizontal: 20,
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    episode.title,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  const Icon(
+                                    Icons.chevron_right_rounded,
+                                    color: Colors.white,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                    ],
-                  );
-                  // ListView는 최적화가 필요하고 필요요소가 굉장히 많을때 쓰면 좋음
-                  // 간단한 작업일때에는 Column 만약 List의 길이를 몰랐다면 Listview가 맞는 선택일 수 있음
-                }
-                return Container();
-              },
-            )
-          ],
+                          )
+                      ],
+                    );
+                    // ListView는 최적화가 필요하고 필요요소가 굉장히 많을때 쓰면 좋음
+                    // 간단한 작업일때에는 Column 만약 List의 길이를 몰랐다면 Listview가 맞는 선택일 수 있음
+                  }
+                  return Container();
+                },
+              )
+            ],
+          ),
         ),
       ),
     );
