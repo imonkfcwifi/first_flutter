@@ -29,6 +29,7 @@ class _DetailScreenState extends State<DetailScreen> {
     webtoon = ApiService.getToonById(widget.id);
     episodes = ApiService.getLastestEpisodesById(widget.id);
     // home screen은 id가 필요없었는데 detail은 id argument가 필요했음
+    // 이 두(getToonById,getLastestEpisodesById) method는 widget의 ID를 전달받아야 하므로 StatefullWidget으로 바꿈
   }
 
   @override
@@ -49,46 +50,46 @@ class _DetailScreenState extends State<DetailScreen> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Hero(
-                tag: widget.id,
-                child: Container(
-                  width: 250,
-                  clipBehavior: Clip.hardEdge,
-                  // 자식의 부모영역 침범 ClipBehavior
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 7,
-                        offset: const Offset(10, 10),
-                        // 그림자 위치 offset, center
-                        color: Colors.black.withOpacity(0.3),
-                      )
-                    ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 50),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Hero(
+                  tag: widget.id,
+                  child: Container(
+                    width: 250,
+                    clipBehavior: Clip.hardEdge,
+                    // 자식의 부모영역 침범 ClipBehavior
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 7,
+                          offset: const Offset(10, 10),
+                          // 그림자 위치 offset, center
+                          color: Colors.black.withOpacity(0.3),
+                        )
+                      ],
+                    ),
+                    child: Image.network(widget.thumb),
                   ),
-                  child: Image.network(widget.thumb),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          FutureBuilder(
-            future: webtoon,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50),
-                  child: Column(
+              ],
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            FutureBuilder(
+              future: webtoon,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -103,13 +104,48 @@ class _DetailScreenState extends State<DetailScreen> {
                         style: const TextStyle(fontSize: 18),
                       ),
                     ],
-                  ),
-                );
-              }
-              return const Text('...');
-            },
-          )
-        ],
+                  );
+                }
+                return const Text('...');
+              },
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            FutureBuilder(
+              future: episodes,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  Column(
+                    children: [
+                      for (var episode in snapshot.data!)
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.green.shade300,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 10,
+                              horizontal: 20,
+                            ),
+                            child: Row(
+                              children: [
+                                Text(episode.title),
+                                const Icon(Icons.chevron_right)
+                              ],
+                            ),
+                          ),
+                        )
+                    ],
+                  );
+                  // ListView는 최적화가 필요하고 필요요소가 굉장히 많을때 쓰면 좋음
+                  // 간단한 작업일때에는 Column 만약 List의 길이를 몰랐다면 Listview가 맞는 선택일 수 있음
+                }
+                return Container();
+              },
+            )
+          ],
+        ),
       ),
     );
   }
